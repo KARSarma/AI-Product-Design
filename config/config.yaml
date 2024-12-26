@@ -1,0 +1,14 @@
+data:
+  raw_data_path: "data/raw"
+  processed_data_path: "data/processed"
+
+model:
+  nlp_model: "distilbert-base-uncased"
+  gan_model: "stylegan2"
+
+aws:
+  bucket_name: "ai-product-design"
+  region: "us-east-1"
+
+logging:
+  log_file: "logs/project.log"
