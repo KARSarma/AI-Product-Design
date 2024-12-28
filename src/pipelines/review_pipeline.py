@@ -13,6 +13,11 @@ def summarize_sentiments(reviews, logger):
     negative_count = 0
 
     logger.info("Summarizing sentiments...")
+
+    # Convert dataset to a list if necessary
+    if not isinstance(reviews, list):
+        reviews = list(reviews)  # Convert Dataset object to list
+
     for review in reviews[:10]:  # Adjust range for testing or production
         if isinstance(review, dict) and "content" in review:
             text = review["content"]
@@ -41,6 +46,10 @@ def analyze_trends(reviews, logger):
     neutral_count = 0
 
     logger.info("Analyzing sentiment trends...")
+
+    if not isinstance(reviews, list):
+        reviews = list(reviews)  # Convert Dataset object to list
+
     for review in reviews[:100]:  # Limit to first 100 reviews
         if isinstance(review, dict) and "content" in review:
             text = review["content"]
@@ -85,13 +94,13 @@ def process_reviews(logger):
         logger.error("No training data found in dataset.")
         return
 
-    train_reviews = reviews["train"][:100]  # Access the first 100 reviews for testing
+    train_reviews = list(reviews["train"])[:100]  # Access the first 100 reviews for testing
     logger.info(f"Train split size: {len(train_reviews)}")
 
     # Sentiment Analysis
     logger.info("Starting sentiment analysis...")
     sentiment_start_time = time.time()
-    for review in train_reviews:
+    for review in train_reviews[:10]:  # Analyze first 10 reviews in the train split
         if isinstance(review, dict) and "content" in review:
             text = review["content"]
             sentiment = analyze_sentiment(text)
